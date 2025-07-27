@@ -1,5 +1,7 @@
 FROM node:23.11-alpine
 
+RUN apk add --no-cache mysql-client
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -10,4 +12,6 @@ COPY . .
 
 EXPOSE 3030
 
-CMD ["npm", "run", "dev"]
+RUN chmod +x /usr/src/app/init.sh
+
+CMD ["sh", "/usr/src/app/init.sh"]
